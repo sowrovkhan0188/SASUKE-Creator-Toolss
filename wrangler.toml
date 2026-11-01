@@ -1,0 +1,7 @@
+name = "sasuke-control"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[[kv_namespaces]]
+binding = "SASUKE_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
