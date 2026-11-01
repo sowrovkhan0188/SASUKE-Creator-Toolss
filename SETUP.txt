@@ -1,0 +1,20 @@
+SASUKE Creator Tools v1.1.0 starter
+
+This is a starter package, not a deployed service.
+Remote shutdown requires deploying the Cloudflare Worker, creating/binding a KV namespace, setting the ADMIN_TOKEN secret, replacing the placeholder URL in config.js, then reloading/repacking the extension.
+When disabled, the panel is removed at the next status check (on page load and every 5 minutes). It cannot erase copies already on users' devices. If the server cannot be reached, tools pause.
+Weekly updates: increment manifest.json version, test, commit, and publish a new release. Automatic updates for public users require Chrome Web Store publication and review.
+
+Worker setup:
+1. Create Cloudflare account and KV namespace named SASUKE_KV.
+2. Put its ID into wrangler.toml.
+3. Set Worker secret ADMIN_TOKEN to a long random value; never put it in GitHub.
+4. Deploy worker.js.
+5. Put deployed workers.dev URL in config.js.
+6. Reload/repackage extension.
+
+Admin API:
+POST /admin/toggle
+Header: Authorization: Bearer YOUR_ADMIN_TOKEN
+JSON to disable: {"enabled":false,"message":"Temporarily disabled"}
+JSON to enable: {"enabled":true,"message":""}
