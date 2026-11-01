@@ -1,31 +1,16 @@
-SASUKE Creator Tools — independent clean-room starter
-Version 1.0.0
+SASUKE Creator Tools - Cloudflare control worker
 
-This is a newly written alternative, not a modified copy of SENZE_EXT.
-Features:
-- Opens TikTok Studio upload page.
-- On TikTok Studio upload pages, lets the user choose a local video and checks source dimensions, duration and file size in-browser.
-- Provides a caption watermark text helper (manual copy/paste).
-- Uses the user-provided SASUKE avatar as extension icons.
+Files:
+- worker.js: status endpoint and token-protected admin toggle endpoint
+- wrangler.toml: Worker name and KV binding placeholder
+- package.json: Wrangler deploy script
 
-Privacy and permissions:
-- No permissions requested.
-- Host access and content script are limited to TikTok Studio upload pages.
-- No remote JavaScript, analytics, credential collection, or video upload is included.
-- Selected video metadata is read locally; no file bytes are sent anywhere.
+Important setup still required before deployment:
+1. Create a Cloudflare KV namespace.
+2. Put its namespace ID in wrangler.toml in place of REPLACE_WITH_YOUR_KV_NAMESPACE_ID.
+3. Add a Worker secret named ADMIN_TOKEN in Cloudflare settings. Never commit the token to GitHub.
+4. Ensure the Worker has a KV binding named SASUKE_KV matching the namespace.
+5. Deploy the Worker.
+6. Update extension config.js with the deployed Worker URL.
 
-Important limits:
-- Does not bypass TikTok restrictions, force 4K, transcode video, or guarantee TikTok's final playback resolution.
-- It is an independent starter, not a feature-for-feature clone of SENZE_EXT.
-- The supplied SENZE_EXT archive did not include a license file; this package does not reuse its code or branding.
-
-Android:
-- Chrome for Android generally does not support installing desktop Chrome extensions.
-- Use a browser/version that explicitly supports Chromium extensions and test compatibility. This package is not a Firefox add-on as-is.
-
-Install where unpacked extensions are supported:
-1. Extract this ZIP.
-2. Open the browser's extension management page.
-3. Enable developer mode and choose Load unpacked.
-4. Select the extracted SASUKE_cleanroom folder containing manifest.json.
-5. Open https://www.tiktok.com/tiktokstudio/upload?from=webapp.
+Do not publish the extension to users until KV, secret, remote status behavior, and extension functionality have been tested. Remote disable only affects connected clients after their next successful status check; it cannot erase installed copies or disable offline clients immediately.
